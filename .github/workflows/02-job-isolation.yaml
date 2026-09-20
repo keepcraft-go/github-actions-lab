@@ -1,0 +1,21 @@
+name: Job Isolation Lab
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create file
+        run: |
+          echo "hello from build job" > result.txt
+          cat result.txt
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Read file
+        run: cat result.txt
