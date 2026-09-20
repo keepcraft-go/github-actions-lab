@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.number }}
 
     steps:
       - name: Create file
@@ -24,5 +26,5 @@ jobs:
     needs: build
 
     steps:
-      - name: Read file
-        run: cat result.txt
+      - name: Use version from build job
+        run: echo "Version is ${{ needs.build.outputs.version }}"
