@@ -8,11 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name : Checkout code 
+        uses: actions/checkout@v4
+
       - name: Hello
         run: echo "hello github actions"
 
-      - name: Check OS
-        run: uname -a
+      - name: Check repository files
+        run: ls -al
 
       - name: Runner Information
         run: | 
