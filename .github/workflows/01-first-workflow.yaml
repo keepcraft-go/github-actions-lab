@@ -13,3 +13,10 @@ jobs:
 
       - name: Check OS
         run: uname -a
+
+      - name: Runner Information
+        run: | 
+          hostname
+          whoami
+          pwd 
+          uname -a
