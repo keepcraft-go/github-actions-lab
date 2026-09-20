@@ -18,8 +18,17 @@ jobs:
         id : version 
         run : echo "number=1.0.0" >> "$GITHUB_OUTPUT"
 
-      - name: Use version in same job
-        run: echo "Version is ${{ steps.version.outputs.number }}"
+      - name: Create result file 
+        run: |
+          echo "This is a result file from the build job" > result.txt
+          echo "version 1.0.${{ github.run_number }}" >> result.txt
+          cat result.txt
+      
+      - name: Upload result file
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-file
+          path: result.txt
 
   deploy:
     runs-on: ubuntu-latest
@@ -28,3 +37,11 @@ jobs:
     steps:
       - name: Use version from build job
         run: echo "Version is ${{ needs.build.outputs.version }}"
+
+      - name: Download result file
+        uses: actions/download-artifact@v4
+        with:
+          name: result-file
+      
+      - name: Check result file
+        run: cat result.txt
