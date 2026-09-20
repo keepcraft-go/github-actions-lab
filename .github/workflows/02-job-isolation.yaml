@@ -12,6 +12,12 @@ jobs:
         run: |
           echo "hello from build job" > result.txt
           cat result.txt
+      - name : Set version
+        id : version 
+        run : echo "number=1.0.0" >> "$GITHUB_OUTPUT
+
+      - name: Use version in same job
+        run: echo "Version is ${{ steps.version.outputs.number }}"
 
   deploy:
     runs-on: ubuntu-latest
